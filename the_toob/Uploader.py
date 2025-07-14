@@ -8,7 +8,8 @@ import time
 from pathlib import Path
 import logging
 import os
-import signal
+import platform
+import subprocess
 
 # Local
 from .Constant import *
@@ -177,6 +178,11 @@ class Uploader:
     def _quit(self):
         """Closes the browser and forcefully kills any lingering processes."""
         self.logger.debug("Attempting to quit browser and all related processes...")
+
+        if not self.browser or not self.browser.driver:
+            self.logger.debug("Browser not found, nothing to quit.")
+            return
+
         try:
             # Get the process IDs before trying to quit
             browser_pid = self.browser.driver.service.process.pid
@@ -184,14 +190,38 @@ class Uploader:
             # Attempt a graceful shutdown first
             self.browser.driver.quit()
 
-            # Force kill the driver process if it's still alive
-            try:
-                os.kill(browser_pid, signal.SIGKILL)
-                self.logger.debug(
-                    f"Force-killed lingering geckodriver process {browser_pid}."
-                )
-            except ProcessLookupError:
-                pass
+            # On Windows, os.kill with SIGKILL is not available.
+            # We use the 'taskkill' command instead.
+            if platform.system() == "Windows":
+                try:
+                    subprocess.run(
+                        ["taskkill", "/F", "/PID", str(browser_pid)],
+                        check=True,
+                        capture_output=True,
+                    )
+                    self.logger.debug(
+                        f"Force-killed lingering geckodriver process {browser_pid} on Windows."
+                    )
+                except subprocess.CalledProcessError as e:
+                    # This error often means the process was already gone, which is fine.
+                    if "not found" not in e.stderr.decode(errors="ignore").lower():
+                        self.logger.error(
+                            f"Failed to kill process {browser_pid} on Windows: {e.stderr.decode(errors='ignore')}"
+                        )
+
+            # For macOS and Linux, we use the original SIGKILL method
+            else:
+                from signal import SIGKILL
+
+                try:
+                    os.kill(browser_pid, SIGKILL)
+                    self.logger.debug(
+                        f"Force-killed lingering geckodriver process {browser_pid}."
+                    )
+                except ProcessLookupError:
+                    # This is expected if the process quit gracefully
+                    pass
+
         except Exception as e:
             self.logger.error(
                 f"An error occurred during quit: {e}. Processes may be orphaned."
