@@ -1,6 +1,6 @@
 # TheToob
 
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=flat)](https://github.com/MD_Wade_Music/the-toob/pulls) _"Hey bubba, what's on the Toob?"_
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=flat)](https://github.com/MD-Wade/The-Toob/pulls) _"Hey bubba, what's on the Toob?"_
 
 `TheToob` is a Python package for uploading videos to YouTube using Selenium. It's a heavily modified and modernized fork of the original [youtube_uploader_selenium by linouk23](https://github.com/linouk23/youtube_uploader_selenium), refactored for robustness, maintainability, and modern features.
 

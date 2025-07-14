@@ -22,8 +22,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MD_Wade_Music/the-toob"
-Issues = "https://github.com/MD_Wade_Music/the-toob/issues"
+Homepage = "https://github.com/MD-Wade/the-toob"
+Issues = "https://github.com/MD-Wade/the-toob/issues"
 
 # This section creates the command-line tool
 [project.scripts]
