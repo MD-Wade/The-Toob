@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "the-toob"
+version = "1.0.0"  # Start with an initial version
+authors = [
+  { name="JW Drummond (MD Wade)", email="wade@mdwade.com" },
+]
+description = "A goofy-but-powerful YouTube uploader using Selenium."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "selenium>=4.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/MD_Wade_Music/the-toob"
+Issues = "https://github.com/MD_Wade_Music/the-toob/issues"
+
+# This section creates the command-line tool
+[project.scripts]
+thetoob = "the_toob.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["the_toob*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "browser: tests for the ToobBrowser class",
+    "uploader: tests for the Uploader class",
+    "page: tests for the UploaderPage class",
+    "integration: full end-to-end tests that require a browser and login",
+]
