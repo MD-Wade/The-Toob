@@ -1,4 +1,5 @@
 import pickle
+import os
 from pathlib import Path
 
 from selenium import webdriver
@@ -13,13 +14,12 @@ class ToobBrowser:
     def __init__(self, profile_path: str, headless: bool = True):
         self.cookie_path = Path(profile_path) / "cookies.pkl"
 
-        profile_path_obj = Path(profile_path)
-        if not profile_path_obj.exists():
+        if not os.path.exists(profile_path):
             print(
-                f"WARNING: The specified profile path does not exist: {profile_path}"
-                "This is a critical error as you need to create a Firefox profile from within Firefox and then sign in to YouTube, both manually, before running this script."
-                "This script cannot create a profile for you, and you cannot sign in to YouTube from it."
-                "Please create a profile manually and sign in to YouTube before running this script. Refer to the README for more details."
+                f"WARNING: The specified profile path does not exist: {profile_path}\n"
+                "This is a critical error as you need to create a Firefox profile from within Firefox and then sign in to YouTube, both manually, before running this script.\n"
+                "This script cannot create a profile for you, and you cannot sign in to YouTube from it.\n"
+                "Please create a profile manually and sign in to YouTube before running this script. Refer to the README for more details.\n"
             )
             raise FileNotFoundError(
                 f"WARNING: The existing profile path does not exist: {profile_path}"

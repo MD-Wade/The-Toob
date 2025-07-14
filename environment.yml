@@ -1,0 +1,22 @@
+# A Conda environment for developing and running TheToob
+name: .conda 
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Core dependencies from Conda channels
+  - python=3.12
+  - pip
+  - selenium
+
+  # Development tools from Conda channels
+  - pytest
+  - pytest-cov
+  - pytest-mock
+
+  # For any packages not on Conda, or for local editable install
+  - pip:
+    - build
+    - twine
+    - platformdirs
+    - -e .

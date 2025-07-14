@@ -1,0 +1,2 @@
+[console_scripts]
+thetoob = the_toob.__main__:main

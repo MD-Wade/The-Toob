@@ -2,11 +2,14 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # Test data
-test/
 crash/
 profiles/
 
+# Builds
+dist/
+
 # User-specific stuff
+.conda/**
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -79,5 +82,5 @@ fabric.properties
 /.DS_Store
 
 # Project temp data
-/youtube_uploader_selenium/__pycache__/
+**/__pycache__/
 /cookies/
